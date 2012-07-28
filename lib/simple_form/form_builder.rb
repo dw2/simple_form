@@ -106,8 +106,8 @@ module SimpleForm
       options = @defaults.deep_dup.deep_merge(options) if @defaults
 
       chosen =
-        if name = options[:wrapper]
-          name.respond_to?(:render) ? name : SimpleForm.wrapper(name)
+        if name = (options[:wrapper] || options[:as])
+          name.respond_to?(:render) ? name : (SimpleForm.wrapper(name) rescue wrapper)
         else
           wrapper
         end
